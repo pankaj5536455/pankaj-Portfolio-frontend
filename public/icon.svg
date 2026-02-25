@@ -1,0 +1,29 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Light background for clarity -->
+  <rect width="200" height="200" fill="#0f1729" rx="8"/>
+  
+  <!-- Logo icon -->
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f766e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Central neural node -->
+  <circle cx="100" cy="110" r="8" fill="url(#logoGrad)"/>
+  
+  <!-- Main branches -->
+  <path d="M100 130 L100 110" stroke="url(#logoGrad)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M100 110 L85 95" stroke="url(#logoGrad)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M100 110 L115 95" stroke="url(#logoGrad)" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Sub-branches -->
+  <path d="M85 95 L75 85" stroke="url(#logoGrad)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+  <path d="M115 95 L125 85" stroke="url(#logoGrad)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+  
+  <!-- Top branch -->
+  <path d="M100 90 L100 70" stroke="url(#logoGrad)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+  <path d="M100 70 L90 60" stroke="url(#logoGrad)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+  <path d="M100 70 L110 60" stroke="url(#logoGrad)" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+</svg>
