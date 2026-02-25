@@ -27,6 +27,14 @@ export interface Domain {
   stats: DomainStat[]
 }
 
+export interface GlobalContent {
+  label: string
+  title: string
+  description: string
+  summary: string
+  highlights: string[]
+}
+
 export const domains: Domain[] = [
   {
     id: "iot",
@@ -278,7 +286,7 @@ export const domains: Domain[] = [
   },
 ]
 
-export const globalContent = {
+export const globalContent: GlobalContent = {
   label: "SYSTEMS ENGINEER",
   title: "Building Intelligent\nSystems Across Domains",
   description:
