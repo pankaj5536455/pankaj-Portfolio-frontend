@@ -65,10 +65,10 @@ export function ContactSection() {
                 Email
               </h3>
               <a
-                href="mailto:contact@example.com"
+                href="mailto:pankaj5536455@gmail.com"
                 className="text-lg text-primary hover:text-primary/80 transition-colors break-all"
               >
-                contact@example.com
+                pankaj5536455@gmail.com
               </a>
             </div>
 
