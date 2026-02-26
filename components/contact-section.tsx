@@ -3,36 +3,89 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import LogoLoadingSpinner from "@/components/logos/LogoLoadingSpinner"
-import { useState } from "react"
+import { useState, type ChangeEvent, type FormEvent } from "react"
+
+type ContactFormState = {
+  name: string
+  email: string
+  message: string
+}
+
+type ApiErrorResponse = {
+  message?: string
+  details?: Record<string, string>
+}
 
 export function ContactSection() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormState>({
     name: "",
     email: "",
     message: "",
   })
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
+    if (submitted) {
+      setSubmitted(false)
+    }
+    if (submitError) {
+      setSubmitError(null)
+    }
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     if (isSubmitting) return
 
-    setIsSubmitting(true)
+    const payload = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      message: formData.message.trim(),
+    }
+    if (!payload.name || !payload.email || !payload.message) {
+      setSubmitError("Please fill all required fields.")
+      return
+    }
 
-    setTimeout(() => {
-      setIsSubmitting(false)
+    setIsSubmitting(true)
+    setSubmitError(null)
+
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"
+      const response = await fetch(`${apiUrl}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      })
+
+      if (!response.ok) {
+        let message = `Failed to submit contact form (${response.status}).`
+        try {
+          const body = (await response.json()) as ApiErrorResponse
+          if (typeof body.message === "string" && body.message.trim()) {
+            message = body.message.trim()
+          }
+          const firstDetail = body.details ? Object.values(body.details).find(Boolean) : undefined
+          if (firstDetail && firstDetail !== message) {
+            message = `${message} ${firstDetail}`
+          }
+        } catch {
+          // Ignore JSON parse failures and use fallback message.
+        }
+        throw new Error(message)
+      }
+
+      setFormData({ name: "", email: "", message: "" })
       setSubmitted(true)
-      setTimeout(() => {
-        setFormData({ name: "", email: "", message: "" })
-        setSubmitted(false)
-      }, 3000)
-    }, 1400)
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : "Could not submit form.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -117,6 +170,14 @@ export function ContactSection() {
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2">Message Sent!</h3>
                   <p className="text-sm text-muted-foreground">I'll get back to you as soon as possible.</p>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="mt-4"
+                    onClick={() => setSubmitted(false)}
+                  >
+                    Send Another
+                  </Button>
                 </div>
               </div>
             ) : isSubmitting ? (
@@ -167,10 +228,16 @@ export function ContactSection() {
 
                 <Button
                   type="submit"
+                  disabled={isSubmitting}
                   className="w-full h-10 bg-primary hover:bg-primary/90 text-primary-foreground"
                 >
                   Send Message
                 </Button>
+                {submitError ? (
+                  <p className="text-sm text-red-500" role="alert">
+                    {submitError}
+                  </p>
+                ) : null}
               </form>
             )}
           </div>
