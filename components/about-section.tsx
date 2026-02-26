@@ -1,9 +1,13 @@
 "use client"
 
-import { globalContent } from "@/lib/domain-data"
+import type { GlobalContent } from "@/lib/domain-data"
 import LogoFull from "@/components/logos/LogoFull"
 
-export function AboutSection() {
+interface AboutSectionProps {
+  globalContent: GlobalContent
+}
+
+export function AboutSection({ globalContent }: AboutSectionProps) {
   return (
     <section id="about" className="relative w-full py-20 px-6 lg:px-12 border-t border-primary/10">
       <div className="max-w-7xl mx-auto">

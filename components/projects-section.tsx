@@ -1,15 +1,16 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { domains } from "@/lib/domain-data"
+import type { Domain } from "@/lib/domain-data"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 interface ProjectsProps {
   activeDomainId?: string | null
+  domains: Domain[]
 }
 
-export function ProjectsSection({ activeDomainId }: ProjectsProps) {
+export function ProjectsSection({ activeDomainId, domains }: ProjectsProps) {
   const [searchQuery, setSearchQuery] = useState("")
 
   const activeDomain = activeDomainId ? domains.find((d) => d.id === activeDomainId) : null

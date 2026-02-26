@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useCallback, useRef, useEffect } from "react"
-import { domains, globalContent } from "@/lib/domain-data"
+import type { Domain, GlobalContent } from "@/lib/domain-data"
 import { DomainWheel } from "@/components/domain-wheel"
 import { DomainView } from "@/components/domain-view"
 
@@ -9,9 +9,11 @@ type ViewState = "hub" | "transitioning-out" | "domain" | "transitioning-in"
 
 interface HeroSectionProps {
   onDomainSelect?: (domainId: string | null) => void
+  domains: Domain[]
+  globalContent: GlobalContent
 }
 
-export function HeroSection({ onDomainSelect }: HeroSectionProps) {
+export function HeroSection({ onDomainSelect, domains, globalContent }: HeroSectionProps) {
   const [viewState, setViewState] = useState<ViewState>("hub")
   const [activeDomainId, setActiveDomainId] = useState<string | null>(null)
   const [hoveredDomainId, setHoveredDomainId] = useState<string | null>(null)
