@@ -22,6 +22,7 @@ export interface Domain {
   // Extended content for domain "website" view
   tagline: string
   philosophy: string
+  imageUrl?: string
   tools: string[]
   projects: DomainProject[]
   stats: DomainStat[]
@@ -33,6 +34,18 @@ export interface GlobalContent {
   description: string
   summary: string
   highlights: string[]
+  aboutTitle: string
+  aboutParagraphOne: string
+  aboutParagraphTwo: string
+  aboutMetricValue: string
+  aboutMetricLabel: string
+  aboutCards: { title: string; description: string }[]
+  contactEmail: string
+  contactTitle: string
+  contactSubtitle: string
+  contactLocation: string
+  socialLinks: { name: string; url: string }[]
+  portraitImageUrl: string
 }
 
 export const domains: Domain[] = [
@@ -297,4 +310,36 @@ export const globalContent: GlobalContent = {
     "Hardware to cloud full-stack capability",
     "Research-driven, production-ready output",
   ],
+  aboutTitle: "Systems Engineer & Builder",
+  aboutParagraphOne:
+    "I'm a multidisciplinary engineer with a passion for building intelligent systems that bridge hardware, software, and data. With expertise across eight interconnected engineering domains, I create real-world solutions that scale.",
+  aboutParagraphTwo:
+    "My approach combines rigorous engineering principles with creative problem-solving. Whether optimizing IoT sensor networks, training machine learning models, architecting microservices, or designing intuitive interfaces, I focus on building systems that are not just technically sound, but meaningfully solve problems.",
+  aboutMetricValue: "8",
+  aboutMetricLabel: "Engineering Domains",
+  aboutCards: [
+    {
+      title: "Hardware to Cloud",
+      description: "Full-stack capability from embedded systems to cloud infrastructure",
+    },
+    {
+      title: "Research-Driven",
+      description: "Publications, prototypes, and production-ready implementations",
+    },
+    {
+      title: "Real-World Focus",
+      description: "Solutions tested at scale with measurable impact",
+    },
+  ],
+  contactEmail: "pankaj5536455@gmail.com",
+  contactTitle: "Let's Build Something Together",
+  contactSubtitle:
+    "Have a project in mind? Whether you're exploring a new idea or scaling an existing system, I'd love to hear from you.",
+  contactLocation: "Available for remote collaboration worldwide",
+  socialLinks: [
+    { name: "GitHub", url: "#" },
+    { name: "LinkedIn", url: "#" },
+    { name: "Twitter", url: "#" },
+  ],
+  portraitImageUrl: "/portrait.png",
 }

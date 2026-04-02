@@ -18,7 +18,7 @@ export default function Home() {
       <HeroSection onDomainSelect={setActiveDomainId} domains={domains} globalContent={global} />
       <ProjectsSection activeDomainId={activeDomainId} domains={domains} />
       <AboutSection globalContent={global} />
-      <ContactSection />
+      <ContactSection globalContent={global} />
     </main>
   )
 }

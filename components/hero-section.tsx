@@ -118,7 +118,7 @@ export function HeroSection({ onDomainSelect, domains, globalContent }: HeroSect
             pointerEvents: viewState === "hub" ? "auto" : "none",
           }}
         >
-          <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center gap-12 px-6 py-20 lg:flex-row lg:gap-8 lg:px-12 xl:gap-16">
+          <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center gap-12 px-6 py-20 lg:flex-row lg:items-start lg:gap-8 lg:px-12 xl:gap-16">
 
             {/* Left Panel */}
             <div className="order-2 flex max-w-sm flex-1 flex-col justify-center gap-6 lg:order-1">
@@ -174,6 +174,7 @@ export function HeroSection({ onDomainSelect, domains, globalContent }: HeroSect
                 hoveredDomain={hoveredDomainId}
                 onDomainClick={handleDomainClick}
                 onDomainHover={handleDomainHover}
+                portraitImageUrl={globalContent.portraitImageUrl}
               />
             </div>
 
@@ -243,7 +244,11 @@ export function HeroSection({ onDomainSelect, domains, globalContent }: HeroSect
             pointerEvents: viewState === "domain" ? "auto" : "none",
           }}
         >
-          <DomainView domain={activeDomain} onBack={handleBack} />
+          <DomainView
+            domain={activeDomain}
+            onBack={handleBack}
+            portraitImageUrl={globalContent.portraitImageUrl}
+          />
         </div>
       )}
     </div>

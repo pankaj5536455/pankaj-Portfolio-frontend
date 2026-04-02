@@ -27,8 +27,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${_inter.variable} ${_jetbrains.variable} font-sans antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        suppressHydrationWarning
+        data-gramm="false"
+        data-gramm_editor="false"
+        data-enable-grammarly="false"
+        className={`${_inter.variable} ${_jetbrains.variable} font-sans antialiased`}
+      >
         <LogoProvider>
           {children}
           <Analytics />

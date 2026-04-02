@@ -1,11 +1,13 @@
 interface PortraitCircleProps {
   accentColor?: string
+  imageUrl?: string
   sizeClass?: string
   showHoverRing?: boolean
 }
 
 export function PortraitCircle({
   accentColor,
+  imageUrl = "/portrait.png",
   sizeClass = "h-64 w-64 lg:h-96 lg:w-96",
   showHoverRing = false,
 }: PortraitCircleProps) {
@@ -21,7 +23,7 @@ export function PortraitCircle({
     >
       {/* Portrait image - centered display */}
       <img
-        src="/portrait.png"
+        src={imageUrl}
         alt="Portrait"
         className="h-full w-full object-cover"
         style={{

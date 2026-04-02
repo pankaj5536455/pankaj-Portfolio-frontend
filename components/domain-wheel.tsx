@@ -9,6 +9,7 @@ interface DomainWheelProps {
   hoveredDomain: string | null
   onDomainClick: (id: string) => void
   onDomainHover: (id: string | null) => void
+  portraitImageUrl?: string
 }
 
 // Pre-computed stable pattern coordinates to avoid hydration mismatches
@@ -160,6 +161,7 @@ export function DomainWheel({
   hoveredDomain,
   onDomainClick,
   onDomainHover,
+  portraitImageUrl,
 }: DomainWheelProps) {
   if (!domains || domains.length === 0) return null
   const [mounted, setMounted] = useState(false)
@@ -337,7 +339,7 @@ export function DomainWheel({
             y={center - (innerRadius - 12)}
             width={(innerRadius - 12) * 2}
             height={(innerRadius - 12) * 2}
-            href="/portrait.png"
+            href={portraitImageUrl || "/portrait.png"}
             clipPath="url(#portraitClip)"
             preserveAspectRatio="xMidYMin slice"
           />

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import LogoLoadingSpinner from "@/components/logos/LogoLoadingSpinner"
 import { useState, type ChangeEvent, type FormEvent } from "react"
+import type { GlobalContent } from "@/lib/domain-data"
 
 type ContactFormState = {
   name: string
@@ -16,7 +17,11 @@ type ApiErrorResponse = {
   details?: Record<string, string>
 }
 
-export function ContactSection() {
+interface ContactSectionProps {
+  globalContent: GlobalContent
+}
+
+export function ContactSection({ globalContent }: ContactSectionProps) {
   const [formData, setFormData] = useState<ContactFormState>({
     name: "",
     email: "",
@@ -100,11 +105,10 @@ export function ContactSection() {
             </span>
           </div>
           <h2 className="text-3xl lg:text-4xl font-semibold text-foreground mb-4">
-            Let's Build Something Together
+            {globalContent.contactTitle}
           </h2>
           <p className="text-muted-foreground max-w-2xl">
-            Have a project in mind? Whether you're exploring a new idea or scaling an existing system, 
-            I'd love to hear from you.
+            {globalContent.contactSubtitle}
           </p>
         </div>
 
@@ -118,10 +122,10 @@ export function ContactSection() {
                 Email
               </h3>
               <a
-                href="mailto:pankaj5536455@gmail.com"
+                href={`mailto:${globalContent.contactEmail}`}
                 className="text-lg text-primary hover:text-primary/80 transition-colors break-all"
               >
-                pankaj5536455@gmail.com
+                {globalContent.contactEmail}
               </a>
             </div>
 
@@ -130,9 +134,7 @@ export function ContactSection() {
               <h3 className="text-sm font-semibold text-foreground mb-2 uppercase tracking-widest">
                 Location
               </h3>
-              <p className="text-muted-foreground">
-                Available for remote collaboration worldwide
-              </p>
+              <p className="text-muted-foreground">{globalContent.contactLocation}</p>
             </div>
 
             {/* Social Links */}
@@ -141,11 +143,7 @@ export function ContactSection() {
                 Connect
               </h3>
               <div className="flex gap-4">
-                {[
-                  { name: "GitHub", url: "#" },
-                  { name: "LinkedIn", url: "#" },
-                  { name: "Twitter", url: "#" },
-                ].map((social) => (
+                {globalContent.socialLinks.map((social) => (
                   <a
                     key={social.name}
                     href={social.url}

@@ -6,9 +6,11 @@ import { PortraitCircle } from "./portrait-circle"
 interface DomainViewProps {
   domain: Domain
   onBack: () => void
+  portraitImageUrl?: string
 }
 
-export function DomainView({ domain, onBack }: DomainViewProps) {
+export function DomainView({ domain, onBack, portraitImageUrl }: DomainViewProps) {
+  const portraitUrl = domain.imageUrl || portraitImageUrl
   return (
     <div
       className="flex min-h-screen w-full flex-col"
@@ -55,6 +57,7 @@ export function DomainView({ domain, onBack }: DomainViewProps) {
             >
               <PortraitCircle
                 accentColor={domain.accentColor}
+                imageUrl={portraitUrl}
                 sizeClass="h-64 w-64 lg:h-96 lg:w-96"
                 showHoverRing={true}
               />
@@ -163,43 +166,45 @@ export function DomainView({ domain, onBack }: DomainViewProps) {
             </div>
 
             {/* Projects */}
-            <div className="flex flex-col gap-5">
-              <span
-                className="text-xs font-medium tracking-[0.2em] font-mono uppercase"
-                style={{ color: domain.accentColor }}
-              >
-                Selected Projects
-              </span>
-              <div className="flex flex-col gap-4">
-                {domain.projects.map((project) => (
-                  <div
-                    key={project.name}
-                    className="flex flex-col gap-2 rounded-lg p-5"
-                    style={{
-                      backgroundColor: `${domain.accentColor}06`,
-                      border: `1px solid ${domain.accentColor}15`,
-                    }}
-                  >
-                    <h3 className="text-sm font-semibold text-foreground lg:text-base">{project.name}</h3>
-                    <p className="text-xs leading-relaxed text-muted-foreground lg:text-sm">{project.description}</p>
-                    <div className="mt-1 flex flex-wrap gap-1.5">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded px-2 py-0.5 text-[10px] font-mono"
-                          style={{
-                            backgroundColor: `${domain.accentColor}10`,
-                            color: `${domain.accentColor}aa`,
-                          }}
-                        >
-                          {tag}
-                        </span>
-                      ))}
+            {domain.projects.length > 0 ? (
+              <div className="flex flex-col gap-5">
+                <span
+                  className="text-xs font-medium tracking-[0.2em] font-mono uppercase"
+                  style={{ color: domain.accentColor }}
+                >
+                  Selected Projects
+                </span>
+                <div className="flex flex-col gap-4">
+                  {domain.projects.map((project) => (
+                    <div
+                      key={project.name}
+                      className="flex flex-col gap-2 rounded-lg p-5"
+                      style={{
+                        backgroundColor: `${domain.accentColor}06`,
+                        border: `1px solid ${domain.accentColor}15`,
+                      }}
+                    >
+                      <h3 className="text-sm font-semibold text-foreground lg:text-base">{project.name}</h3>
+                      <p className="text-xs leading-relaxed text-muted-foreground lg:text-sm">{project.description}</p>
+                      <div className="mt-1 flex flex-wrap gap-1.5">
+                        {project.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded px-2 py-0.5 text-[10px] font-mono"
+                            style={{
+                              backgroundColor: `${domain.accentColor}10`,
+                              color: `${domain.accentColor}aa`,
+                            }}
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : null}
           </div>
         </div>
 
